@@ -3,32 +3,11 @@
  */
 package AlgoUeb2;
 
+import AlgoUeb2.lists.DoublyLinkedList;
+
 public class App {
 
-    public static void main(String[] args) throws Exception {
-
-        Student student1 = new Student("Mark", "Something", 83, 7373);
-        Student student2 = new Student("Carl", "SomethingElse", 38, 3737);
-        Student student3 = new Student("Huseyin", "SomethingNew", 35, 2937);
-        SinglyLinkedList<Student> students = new SinglyLinkedList<Student>();
-
-        /*students.addLast(student1);
-        System.out.println(students.get(0));*/
-
-
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
-        students.printAll();
-        System.out.print(System.lineSeparator());
-
-        students.remove(0);
-        students.printAll();
-        System.out.print(System.lineSeparator());
-
-        students.remove(1);
-        students.printAll();
-
+    public static void main(String[] args){
 
     }
 }

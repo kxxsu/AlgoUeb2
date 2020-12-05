@@ -3,16 +3,18 @@
  */
 package AlgoUeb2;
 
+import AlgoUeb2.lists.SinglyLinkedList;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class SinglyLikedTest {
 
-    SinglyLinkedList<Student> test = new SinglyLinkedList<Student>();
+    SinglyLinkedList<Student> test = new SinglyLinkedList<>();
 
     private static final Student student1 = new Student("Mark", "Something", 83, 7373);
     private static final Student student2 = new Student("Carl", "SomethingElse", 38, 3737);
     private static final Student student3 = new Student("Huseyin", "SomethingNew", 35, 2937);
+    private static final Student student4 = new Student("Melisa", "Urgh", 36, 2873);
 
     @Test
     public void goodAddFirstAndGetTest() {
@@ -39,12 +41,23 @@ public class SinglyLikedTest {
     }
 
     @Test
-    public void goodAddLastAndGetTest() {
+    public void goodAddLastTest() {
         test.addLast(student1);
         Assert.assertEquals(student1, test.get(0));
         test.addLast(student2);
         Assert.assertEquals(student1, test.get(0));
         Assert.assertEquals(student2, test.get(1));
+    }
+
+    @Test
+    public void badAddLastTest() {
+        test.addLast(student1);
+        Assert.assertNotNull(test.get(0));
+        test.addLast(student2);
+        test.addLast(student3);
+        Assert.assertNotEquals(student1, test.get(2));
+        Assert.assertNotEquals(student2, test.get(0));
+        Assert.assertNotEquals(student3, test.get(1));
     }
 
     @Test
@@ -55,4 +68,51 @@ public class SinglyLikedTest {
         test.remove(0);
         Assert.assertEquals(student2, test.get(0));
     }
+
+    @Test
+    public void goodRemoveTest2() throws Exception {
+        test.addLast(student1);
+        test.remove(0);
+        Assert.assertNull(test.get(0));
+    }
+
+    @Test(expected = Exception.class)
+    public void badRemoveTest() throws Exception {
+        test.remove(1);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void badRemoveTest2() throws Exception {
+        test.addLast(student3);
+        test.remove(1);
+    }
+
+    @Test
+    public void goodAddAtIndexTest() {
+        test.add(student1);
+        test.add(student3);
+        test.add(1, student2);
+        Assert.assertEquals(student1, test.get(0));
+        Assert.assertEquals(student2, test.get(1));
+        Assert.assertEquals(student3, test.get(2));
+
+        test.add(2, student4);
+        Assert.assertEquals(student1, test.get(0));
+        Assert.assertEquals(student2, test.get(1));
+        Assert.assertEquals(student4, test.get(2));
+        Assert.assertEquals(student3, test.get(3));
+
+        test.clear();
+        test.add(student2);
+        test.add(0, student1);
+        Assert.assertEquals(student1, test.get(0));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void badAddAtIndexTest() {
+        test.add(student1);
+        test.add(1, student2);
+    }
+
+
 }

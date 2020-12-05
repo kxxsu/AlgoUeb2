@@ -1,4 +1,4 @@
-package AlgoUeb2;
+package AlgoUeb2.lists;
 
 public interface Listable<T> {
     void add(T data);
