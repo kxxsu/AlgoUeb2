@@ -1,4 +1,4 @@
-package AlgoUeb2;
+package AlgoUeb2.util;
 
 public class Student {
     private String prename;

@@ -106,6 +106,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
     @Override
     public void clear() {
         head = null;
+        tail = null;
         size = 0;
     }
 

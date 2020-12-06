@@ -4,6 +4,7 @@
 package AlgoUeb2;
 
 import AlgoUeb2.lists.SinglyLinkedList;
+import AlgoUeb2.util.Student;
 import org.junit.Assert;
 import org.junit.Test;
 

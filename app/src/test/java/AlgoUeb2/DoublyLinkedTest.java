@@ -1,6 +1,7 @@
 package AlgoUeb2;
 
 import AlgoUeb2.lists.DoublyLinkedList;
+import AlgoUeb2.util.Student;
 import org.junit.Assert;
 import org.junit.Test;
 
