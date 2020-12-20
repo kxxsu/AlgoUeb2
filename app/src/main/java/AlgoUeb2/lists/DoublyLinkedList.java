@@ -1,5 +1,7 @@
 package AlgoUeb2.lists;
 
+import java.util.LinkedList;
+
 public class DoublyLinkedList<T> implements Listable<T> {
     private Node head = null;
     private Node tail = null;
@@ -24,11 +26,22 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
     @Override
     public void add(int index, T data) {
+        Node node = head;
+
         if (index == 0 && isEmpty()) {
             addLast(data);
+        } else if (index == 0) {
+            addFirst(data);
+        } else {
+            indexOutOfBounds(index);
+            for(int i = 0; i < index - 1; i++) {
+                node = node.next;
+            }
+            Node added = new Node(node, data, node.next);
+            node.next = added;
+            added.next.prev = added;
         }
-        indexOutOfBounds(index);
-
+        size++;
     }
 
     @Override

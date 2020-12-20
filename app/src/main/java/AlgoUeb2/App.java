@@ -3,11 +3,12 @@
  */
 package AlgoUeb2;
 
+import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.sort.*;
+import AlgoUeb2.sort.algorithms.MergeSort;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,18 @@ public class App {
         Student student2 = new Student("Carl", "SomethingElse", Course.B2, 3737);
         Student student3 = new Student("Huseyin", "SomethingNew", Course.B3, 2937);
         Student student4 = new Student("Melisa", "Urgh", Course.B4, 2873);
+        Student student5 = new Student("Sibel", "E", Course.B5, 4434);
+
+        Listable<Student> list = new DoublyLinkedList<>();
+        list.add(student2);
+        list.add(student1);
+        list.add(student3);
+        list.add(student4);
+        list.add(student5);
+        printStudents(list, "Unsortiert");
+        Sortable<Student> mergeSort = new MergeSort<>();
+        mergeSort.sort(list, new CourseComparator(), 0, list.size() - 1);
+        printStudents(list, "Merge");
 
         /*Listable<Student> list = Arrays.asList(student1, student2, student3, student4);
         printStudents(list, "Unsortiert");
@@ -27,8 +40,6 @@ public class App {
         sort(list, new SelectionSort<Student>(), new CourseComparator());
         sort(list, new SelectionSort<Student>(), new PrenameComparator());
         sort(list, new BubbleSort<Student>(), new PrenameComparator());*/
-
-        System.out.println(7 / 2);
 
     }
 

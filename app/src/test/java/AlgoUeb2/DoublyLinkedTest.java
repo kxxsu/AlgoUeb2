@@ -70,4 +70,39 @@ public class DoublyLinkedTest {
         test.remove(0);
         Assert.assertTrue(test.isEmpty());
     }
+
+    @Test
+    public void goodAddTest(){
+        test.add(student1);
+        test.add(student2);
+        test.add(student3);
+
+        Assert.assertEquals(student1, test.get(0));
+        Assert.assertEquals(student2, test.get(1));
+        Assert.assertEquals(student3, test.get(2));
+    }
+
+    @Test
+    public void goodAddAtIndexTest1(){
+        test.add(student1);
+        test.add(student3);
+        test.add(1, student2);
+
+        Assert.assertEquals(student1, test.get(0));
+        Assert.assertEquals(student2, test.get(1));
+        Assert.assertEquals(student3, test.get(2));
+    }
+
+    @Test
+    public void goodAddAtIndexTest2(){
+        test.add(student1);
+        test.add(student4);
+        test.add(1, student2);
+        test.add(2, student3);
+
+        Assert.assertEquals(student1, test.get(0));
+        Assert.assertEquals(student2, test.get(1));
+        Assert.assertEquals(student3, test.get(2));
+        Assert.assertEquals(student4, test.get(3));
+    }
 }

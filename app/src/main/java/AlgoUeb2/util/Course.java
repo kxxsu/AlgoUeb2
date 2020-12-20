@@ -5,5 +5,5 @@ public enum Course {
     B2,
     B3,
     B4,
-    B5
+    B5;
 }

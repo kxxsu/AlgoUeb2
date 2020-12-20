@@ -21,8 +21,8 @@ public class MergeSortTest {
 
     private Listable<Student> makeList() {
         Listable<Student> list = new SinglyLinkedList<>();
-        list.add(student1);
         list.add(student2);
+        list.add(student1);
         list.add(student3);
         list.add(student4);
         list.add(student5);
@@ -30,24 +30,24 @@ public class MergeSortTest {
     }
 
     @Test
-    public void studentIDSortTest() {
+    public void courseNoSortTest() {
         Listable<Student> list = makeList();
-        Sortable<Student> insertion = new MergeSort<>();
-        insertion.sort(list, new StudentIDComparator());
-        Assert.assertEquals(student4, list.get(0));
-        Assert.assertEquals(student3, list.get(1));
-        Assert.assertEquals(student2, list.get(2));
-        Assert.assertEquals(student5, list.get(3));
-        Assert.assertEquals(student1, list.get(4));
+        Sortable<Student> mergeSort = new MergeSort<>();
+        mergeSort.sort(list, new CourseComparator(), 0, list.size() - 1);
+        Assert.assertEquals(student1, list.get(0));
+        Assert.assertEquals(student2, list.get(1));
+        Assert.assertEquals(student3, list.get(2));
+        Assert.assertEquals(student4, list.get(3));
+        Assert.assertEquals(student5, list.get(4));
     }
 
     @Test
-    public void courseNoSortTest() {
+    public void studentIDSortTest() {
         Listable<Student> list = makeList();
         Sortable<Student> insertion = new MergeSort<>();
-        insertion.sort(list, new CourseComparator());
-        Assert.assertEquals(student3, list.get(0));
-        Assert.assertEquals(student4, list.get(1));
+        insertion.sort(list, new StudentIDComparator(), 0, 4);
+        Assert.assertEquals(student4, list.get(0));
+        Assert.assertEquals(student3, list.get(1));
         Assert.assertEquals(student2, list.get(2));
         Assert.assertEquals(student5, list.get(3));
         Assert.assertEquals(student1, list.get(4));
