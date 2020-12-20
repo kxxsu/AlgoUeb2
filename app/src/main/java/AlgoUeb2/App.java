@@ -3,7 +3,9 @@
  */
 package AlgoUeb2;
 
+import AlgoUeb2.lists.Listable;
 import AlgoUeb2.sort.*;
+import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
 import org.checkerframework.checker.units.qual.C;
 
@@ -13,27 +15,29 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args){
-        Student student1 = new Student("Mark", "Something", 83, 7373);
-        Student student2 = new Student("Carl", "SomethingElse", 38, 3737);
-        Student student3 = new Student("Huseyin", "SomethingNew", 35, 2937);
-        Student student4 = new Student("Melisa", "Urgh", 36, 2873);
+        Student student1 = new Student("Mark", "Something", Course.B1, 7373);
+        Student student2 = new Student("Carl", "SomethingElse", Course.B2, 3737);
+        Student student3 = new Student("Huseyin", "SomethingNew", Course.B3, 2937);
+        Student student4 = new Student("Melisa", "Urgh", Course.B4, 2873);
 
-        List<Student> list = Arrays.asList(student1, student2, student3, student4);
+        /*Listable<Student> list = Arrays.asList(student1, student2, student3, student4);
         printStudents(list, "Unsortiert");
         sort(list, new SelectionSort<Student>(), new StudentIDComparator());
         sort(list, new BubbleSort<Student>(), new CourseComparator());
         sort(list, new SelectionSort<Student>(), new CourseComparator());
         sort(list, new SelectionSort<Student>(), new PrenameComparator());
-        sort(list, new BubbleSort<Student>(), new PrenameComparator());
+        sort(list, new BubbleSort<Student>(), new PrenameComparator());*/
+
+        System.out.println(7 / 2);
 
     }
 
-    private static void sort(List<Student> list, Sortable<Student> algo, Comparator<Student> comp) {
+    private static void sort(Listable<Student> list, Sortable<Student> algo, Comparator<Student> comp) {
         algo.sort(list, comp);
         printStudents(list, algo.getClass().getSimpleName() + ": " + comp.getClass().getSimpleName());
     }
 
-    private static void printStudents(List<Student> list, String headline) {
+    private static void printStudents(Listable<Student> list, String headline) {
         System.out.println(headline);
         for(int i = 0; i < list.size(); i++) {
             System.out.println((i+1) + ". " + list.get(i));

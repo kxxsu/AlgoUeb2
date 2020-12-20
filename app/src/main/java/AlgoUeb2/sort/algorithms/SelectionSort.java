@@ -1,13 +1,14 @@
-package AlgoUeb2.sort;
+package AlgoUeb2.sort.algorithms;
 
-import java.util.List;
-
-import static java.util.Collections.swap;
+import AlgoUeb2.lists.Listable;
+import AlgoUeb2.sort.Comparator;
+import AlgoUeb2.sort.Sortable;
+import AlgoUeb2.sort.Swap;
 
 public class SelectionSort<T> extends Swap<T> implements Sortable<T> {
 
     @Override
-    public void sort(List<T> list, Comparator comp) {
+    public void sort(Listable<T> list, Comparator comp) {
         int minimum = 0;
         for (int i = 0; i < list.size(); i++) {
             minimum = i;
@@ -18,5 +19,10 @@ public class SelectionSort<T> extends Swap<T> implements Sortable<T> {
             }
             swap(list, i, minimum);
         }
+    }
+
+    @Override
+    public void sort(Listable<T> list, Comparator comp, int begin, int end) {
+
     }
 }
