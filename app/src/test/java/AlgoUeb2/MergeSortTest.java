@@ -1,5 +1,6 @@
 package AlgoUeb2;
 
+import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.lists.SinglyLinkedList;
 import AlgoUeb2.sort.*;
@@ -18,7 +19,7 @@ public class MergeSortTest {
     private static final Student student5 = new Student("Sibel", "E", Course.B5, 4434);
 
 
-    private Listable<Student> makeList() {
+    private Listable<Student> makeSinglyList() {
         Listable<Student> list = new SinglyLinkedList<>();
         list.add(student2);
         list.add(student1);
@@ -27,10 +28,19 @@ public class MergeSortTest {
         list.add(student5);
         return list;
     }
+    private Listable<Student> makeDoublyList() {
+        Listable<Student> list = new DoublyLinkedList<>();
+        list.add(student5);
+        list.add(student4);
+        list.add(student3);
+        list.add(student2);
+        list.add(student1);
+        return list;
+    }
 
     @Test
     public void courseNoSortTest() {
-        Listable<Student> list = makeList();
+        Listable<Student> list = makeSinglyList();
         Sortable<Student> mergeSort = new MergeSort<>();
         mergeSort.sort(list, new CourseComparator(), 0, list.size() - 1);
         Assert.assertEquals(student1, list.get(0));
@@ -42,7 +52,7 @@ public class MergeSortTest {
 
     @Test
     public void studentIDSortTest() {
-        Listable<Student> list = makeList();
+        Listable<Student> list = makeSinglyList();
         Sortable<Student> insertion = new MergeSort<>();
         insertion.sort(list, new StudentIDComparator(), 0, 4);
         Assert.assertEquals(student4, list.get(0));
@@ -54,9 +64,9 @@ public class MergeSortTest {
 
     @Test
     public void prenameSortTest() {
-        Listable<Student> list = makeList();
+        Listable<Student> list = makeSinglyList();
         Sortable<Student> insertion = new MergeSort<>();
-        insertion.sort(list, new PrenameComparator());
+        insertion.sort(list, new PrenameComparator(), 0, 4);
         Assert.assertEquals(student2, list.get(0));
         Assert.assertEquals(student3, list.get(1));
         Assert.assertEquals(student1, list.get(2));
@@ -66,13 +76,27 @@ public class MergeSortTest {
 
     @Test
     public void lastnameSortTest() {
-        Listable<Student> list = makeList();
+        Listable<Student> list = makeSinglyList();
         Sortable<Student> insertion = new MergeSort<>();
-        insertion.sort(list, new LastnameComparator());
+        insertion.sort(list, new LastnameComparator(), 0, 4);
         Assert.assertEquals(student1, list.get(1));
-        Assert.assertEquals(student2, list.get(0));
+        Assert.assertEquals(student5, list.get(0));
+        Assert.assertEquals(student2, list.get(2));
+        Assert.assertEquals(student3, list.get(3));
+        Assert.assertEquals(student4, list.get(4));
+    }
+
+    @Test
+    public void goodCourseComparatorTestDoubly(){
+        Listable<Student> list = makeDoublyList();
+        Sortable<Student> mergeSort = new MergeSort<>();
+        mergeSort.sort(list, new CourseComparator(), 0, list.size() - 1);
+
+        Assert.assertEquals(student1, list.get(0));
+        Assert.assertEquals(student2, list.get(1));
         Assert.assertEquals(student3, list.get(2));
         Assert.assertEquals(student4, list.get(3));
         Assert.assertEquals(student5, list.get(4));
+
     }
 }

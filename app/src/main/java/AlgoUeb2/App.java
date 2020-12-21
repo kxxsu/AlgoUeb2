@@ -13,30 +13,6 @@ import AlgoUeb2.util.Student;
 public class App {
 
     public static void main(String[] args){
-        Student student1 = new Student("Mark", "Something", Course.B1, 7373);
-        Student student2 = new Student("Carl", "SomethingElse", Course.B2, 3100);
-        Student student3 = new Student("Huseyin", "SomethingNew", Course.B3, 2937);
-        Student student4 = new Student("Melisa", "Urgh", Course.B4, 2873);
-        Student student5 = new Student("Sibel", "E", Course.B5, 2994);
-
-        Listable<Student> list = new DoublyLinkedList<>();
-        list.add(student2);
-        list.add(student1);
-        list.add(student3);
-        list.add(student4);
-        list.add(student5);
-        printStudents(list, "Unsortiert");
-        Sortable<Student> mergeSort = new MergeSort<>();
-        mergeSort.sort(list, new LastnameComparator(), 0, list.size() - 1);
-        printStudents(list, "Merge");
-
-        /*Listable<Student> list = Arrays.asList(student1, student2, student3, student4);
-        printStudents(list, "Unsortiert");
-        sort(list, new SelectionSort<Student>(), new StudentIDComparator());
-        sort(list, new BubbleSort<Student>(), new CourseComparator());
-        sort(list, new SelectionSort<Student>(), new CourseComparator());
-        sort(list, new SelectionSort<Student>(), new PrenameComparator());
-        sort(list, new BubbleSort<Student>(), new PrenameComparator());*/
 
     }
 

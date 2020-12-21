@@ -10,7 +10,6 @@ public class MergeSort<T> extends Swap<T> implements Sortable<T> {
 
     @Override
     public void sort(Listable<T> list, Comparator comp) {
-
     }
 
     @Override
@@ -29,7 +28,7 @@ public class MergeSort<T> extends Swap<T> implements Sortable<T> {
         Listable<T> copyList = new DoublyLinkedList<>();
 
         for (int i = 0; i < list.size(); i++) {
-            copyList.set(i, list.get(i));
+            copyList.add(list.get(i));
         }
 
         int i;
@@ -51,48 +50,8 @@ public class MergeSort<T> extends Swap<T> implements Sortable<T> {
                 i++;
             } else {
                 list.set(k, copyList.get(j));
-                j++;
+                j--;
             }
         }
-
-
-
-        /*while(i < leftSize && j < rightSize) {
-            if(comp.compare(leftList.get(i), rightList.get(j)) < 0) {
-                list.set(k, leftList.get(i));
-                i++;
-            } else {
-                list.set(k, rightList.get(j));
-                j++;
-            }
-        }
-
-        while(i < leftSize) {
-            list.set(k, leftList.get(i));
-            i++;
-            k++;
-        }
-        while(j < rightSize) {
-            list.set(k, rightList.get(j));
-            j++;
-            k++;
-        }*/
-
-
-        /*
-        Copy remaining elements of L[] if any
-        while (i < n1) {
-            arr[k] = L[i];
-            i++;
-            k++;
-        }
-
-        Copy remaining elements of R[] if any
-        while (j < n2) {
-            arr[k] = R[j];
-            j++;
-            k++;
-        }
-        */
     }
 }

@@ -3,7 +3,6 @@ package AlgoUeb2.util;
 public class Student {
     private String prename;
     private String surname;
-    //private int course;
     private int studentID;
     private Course course;
 
@@ -11,7 +10,6 @@ public class Student {
     public Student(String prename, String surname, Course courseno, int studentID) {
         this.prename = prename;
         this.surname = surname;
-        //this.course = course;
         this.studentID = studentID;
         this.course = courseno;
     }
