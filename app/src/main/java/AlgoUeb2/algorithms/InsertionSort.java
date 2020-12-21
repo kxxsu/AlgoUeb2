@@ -1,4 +1,4 @@
-package AlgoUeb2.sort.algorithms;
+package AlgoUeb2.algorithms;
 
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.sort.Comparator;

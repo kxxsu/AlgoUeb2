@@ -6,12 +6,9 @@ package AlgoUeb2;
 import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.sort.*;
-import AlgoUeb2.sort.algorithms.MergeSort;
+import AlgoUeb2.algorithms.MergeSort;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class App {
 

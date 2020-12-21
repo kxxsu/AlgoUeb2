@@ -1,16 +1,10 @@
-package AlgoUeb2.sort.algorithms;
+package AlgoUeb2.algorithms;
 
 import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.lists.Listable;
-import AlgoUeb2.lists.SinglyLinkedList;
 import AlgoUeb2.sort.Comparator;
-import AlgoUeb2.sort.CourseComparator;
 import AlgoUeb2.sort.Sortable;
 import AlgoUeb2.sort.Swap;
-import AlgoUeb2.util.Course;
-import AlgoUeb2.util.Student;
-
-import java.util.LinkedList;
 
 public class MergeSort<T> extends Swap<T> implements Sortable<T> {
 

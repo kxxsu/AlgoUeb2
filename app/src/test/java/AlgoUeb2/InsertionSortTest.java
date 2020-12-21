@@ -3,7 +3,7 @@ package AlgoUeb2;
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.lists.SinglyLinkedList;
 import AlgoUeb2.sort.*;
-import AlgoUeb2.sort.algorithms.InsertionSort;
+import AlgoUeb2.algorithms.InsertionSort;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
 import org.junit.Assert;
