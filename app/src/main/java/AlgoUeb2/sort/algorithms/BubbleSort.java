@@ -20,6 +20,5 @@ public class BubbleSort<T> extends Swap<T> implements Sortable<T> {
 
     @Override
     public void sort(Listable<T> list, Comparator comp, int begin, int end) {
-
     }
 }

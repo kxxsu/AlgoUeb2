@@ -32,30 +32,32 @@ public class MergeSort<T> extends Swap<T> implements Sortable<T> {
     }
 
     private void merge(Listable<T> list, Comparator comp, int begin, int mid, int end) {
-        Listable<T> leftList = new DoublyLinkedList<>();
-        Listable<T> rightList = new DoublyLinkedList<>();
-        int leftSize = mid - begin + 1;
-        int rightSize = end - mid;
+        Listable<T> copyList = new DoublyLinkedList<>();
 
-        for (int i = 0; i < leftSize; i++) {
-            leftList.add(list.get(begin + i));
+        for (int i = 0; i < list.size(); i++) {
+            copyList.set(i, list.get(i));
         }
 
-        for(int i = 0; i < rightSize; i++) {
-            rightList.add(list.get(mid + 1 + i));
+        int i;
+        int j;
+
+        for (i = begin; i <= mid; i++) {
+            copyList.set(i, list.get(i));
+        }
+        for (j = mid + 1; j <= end; j++) {
+            copyList.set(end + mid + 1 - j, list.get(j));
         }
 
-        int i = 0; // start index of leftList
-        int j = 0; // start index of rightList
-        //int k = begin; // start index of merged List
+        i = begin;
+        j = end;
 
         for(int k = i; k <= end; k++) {
-            if(comp.compare(leftList.get(k), rightList.get(k)) < 0) {
-                list.set(k, leftList.get(i));
+            if(comp.compare(copyList.get(i), copyList.get(j)) < 0) {
+                list.set(k, copyList.get(i));
                 i++;
             } else {
-                list.set(k, rightList.get(j));
-                j--;
+                list.set(k, copyList.get(j));
+                j++;
             }
         }
 
