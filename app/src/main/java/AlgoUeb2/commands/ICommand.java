@@ -1,6 +1,6 @@
 package AlgoUeb2.commands;
 
 public interface ICommand {
-    String execute();
+    String execute() throws Exception;
     String description();
 }

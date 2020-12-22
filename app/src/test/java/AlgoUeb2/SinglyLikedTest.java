@@ -25,8 +25,8 @@ public class SinglyLikedTest {
         Assert.assertEquals(student1, test.get(0));
         test.addFirst(student2);
         Assert.assertEquals(student2, test.get(0));
-        test.addFirst(student1);
-        Assert.assertEquals(student1, test.get(0));
+        test.addFirst(student3);
+        Assert.assertEquals(student3, test.get(0));
         Assert.assertEquals(student2, test.get(1));
         Assert.assertEquals(student1, test.get(2));
     }

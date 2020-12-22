@@ -3,29 +3,59 @@
  */
 package AlgoUeb2;
 
+import AlgoUeb2.commands.CommandFactory;
+import AlgoUeb2.commands.ICommand;
 import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.sort.*;
 import AlgoUeb2.algorithms.MergeSort;
+import AlgoUeb2.util.Console;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
 
 public class App {
+    private static boolean listTypeMenu;
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
+        DoublyLinkedList<ICommand> listType = CommandFactory.returnsListTypeChoice();
+        System.out.println(buildMenu(listType, true));
+        ICommand selectedCommand = selectCommand(listType);
+        System.out.println(selectedCommand.execute());
+
+        DoublyLinkedList<ICommand> commands = CommandFactory.returnsCommandList();
+        do {
+            System.out.println(buildMenu(commands, false));
+            ICommand selectedCmd = selectCommand(commands);
+            System.out.println(selectedCmd.execute());
+        } while (true);
 
     }
 
-    private static void sort(Listable<Student> list, Sortable<Student> algo, Comparator<Student> comp) {
-        algo.sort(list, comp);
-        printStudents(list, algo.getClass().getSimpleName() + ": " + comp.getClass().getSimpleName());
-    }
+    private static String buildMenu(DoublyLinkedList<ICommand> cmdList, boolean listTypeMenu) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(System.lineSeparator());
+        builder.append("Console-Application: Exercise-2 \t\t\tMelisa Fidan 576604" + System.lineSeparator());
 
-    private static void printStudents(Listable<Student> list, String headline) {
-        System.out.println(headline);
-        for(int i = 0; i < list.size(); i++) {
-            System.out.println((i+1) + ". " + list.get(i));
+        if(listTypeMenu) {
+            builder.append(System.lineSeparator() + "Select list type before starting main menu:" + System.lineSeparator());
         }
-        System.out.println();
+        builder.append(System.lineSeparator());
+
+        for (int i = 1; i < cmdList.size(); i++) {
+            ICommand command = cmdList.get(i);
+            builder.append(i + ". " + command.description() + System.lineSeparator());
+        }
+        builder.append(0 + ". " + cmdList.get(0).description() + System.lineSeparator());
+        return builder.toString();
+    }
+
+    private static ICommand selectCommand(DoublyLinkedList<ICommand> cmdList) {
+        do {
+            int select = Console.readIntegerFromStdin("Please enter a number for an option: ", true);
+            if(select >= 0 && select < cmdList.size()) {
+                return cmdList.get(select);
+            }
+            System.out.println("Warning: Invalid option. Please select a number between 0 and " + (cmdList.size() - 1));
+        } while (true);
     }
 }

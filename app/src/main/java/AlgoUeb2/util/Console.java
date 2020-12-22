@@ -15,10 +15,11 @@ public class Console {
                 number = input.nextInt();
                 System.lineSeparator();
             } catch (Exception e){
-                Console.readIntegerFromStdin("Wrong type of entry. Please enter a number: ", true);
+                Console.readIntegerFromStdin("Wrong type of entry. Please enter a valid number: ", true);
             }
         } else{
             number = input.nextInt();
+            System.lineSeparator();
             System.lineSeparator();
         }
 
@@ -29,6 +30,7 @@ public class Console {
         Scanner input = new Scanner(System.in);
         System.out.print(text);
         String words = input.nextLine();
+        System.lineSeparator();
         System.lineSeparator();
 
         return words;
