@@ -9,7 +9,7 @@ import AlgoUeb2.util.Student;
 
 import java.security.InvalidParameterException;
 
-public class CommandFactory {
+public class CommandFactory extends Menu {
 
     private static Listable<Student> list;
 
@@ -52,6 +52,7 @@ public class CommandFactory {
         list.add(printListSize());
         list.add(removeSpecified());
         list.add(clearList());
+        list.add(search());
 
         return list;
     }
@@ -276,8 +277,94 @@ public class CommandFactory {
         };
     }
 
+    ////////////////////////////////////////////// Search ////////////////////////////////////////////////////////
+
+    private static ICommand search() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                DoublyLinkedList<ICommand> searchableList = new DoublyLinkedList<>();
+                searchableList.add(exit());
+                searchableList.add(searchFirstName());
+                searchableList.add(searchLastName());
+                searchableList.add(searchCourse());
+                searchableList.add(searchStudentID());
+
+                System.out.println(buildMenu(searchableList, false));
+                ICommand selectedCmd = selectCommand(searchableList);
+                System.out.println(selectedCmd.execute());
+
+                return null;
+            }
+
+            @Override
+            public String description() {
+                return SEARCH;
+            }
+        };
+    }
+
+    private static ICommand searchFirstName() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                return null;
+            }
+
+            @Override
+            public String description() {
+                return "Search by first name?";
+            }
+        };
+    }
+
+    private static ICommand searchLastName() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                return null;
+            }
+
+            @Override
+            public String description() {
+                return "Search by last name?";
+            }
+        };
+    }
+
+    private static ICommand searchCourse() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                return null;
+            }
+
+            @Override
+            public String description() {
+                return "Search by course number?";
+            }
+        };
+    }
+
+    private static ICommand searchStudentID() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                return null;
+            }
+
+            @Override
+            public String description() {
+                return "Search by matriculation number?";
+            }
+        };
+    }
+
+
+    //////////////////////////////////////////// Private Methods //////////////////////////////////////////////////
+
     private static boolean indexOutOfBounds(int i) {
-        if (i  < 0 || i > list.size() - 1) {
+        if (i < 0 || i > list.size() - 1) {
             return true;
         }
         return false;
@@ -320,7 +407,5 @@ public class CommandFactory {
         }
     }
 
-    ////////////////////////////////////////////// Search ////////////////////////////////////////////////////////
 
-    
 }
