@@ -7,15 +7,8 @@ import AlgoUeb2.commands.CommandFactory;
 import AlgoUeb2.commands.ICommand;
 import AlgoUeb2.commands.Menu;
 import AlgoUeb2.lists.DoublyLinkedList;
-import AlgoUeb2.lists.Listable;
-import AlgoUeb2.sort.*;
-import AlgoUeb2.algorithms.MergeSort;
-import AlgoUeb2.util.Console;
-import AlgoUeb2.util.Course;
-import AlgoUeb2.util.Student;
 
 public class App extends Menu {
-    private static boolean listTypeMenu;
 
     public static void main(String[] args) throws Exception {
         DoublyLinkedList<ICommand> listType = CommandFactory.returnsListTypeChoice();

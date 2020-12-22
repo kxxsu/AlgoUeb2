@@ -47,4 +47,46 @@ public class SearchTest {
         Assert.assertEquals(matches.get(1).getSurname(), "E");
 
     }
+
+    @Test
+    public void goodSurnameSearchTest(){
+        Listable<Student> list = makeSinglyList();
+        Student student = new Student();
+        student.setSurname("Something");
+        Listable<Student> matches = searchObject.search(list, new LastnameComparator(), student);
+
+        Assert.assertEquals(matches.get(0).getPrename(), "Mark");
+        Assert.assertEquals(matches.get(0).getSurname(), "Something");
+        Assert.assertEquals(matches.get(1).getPrename(), "Carl");
+        Assert.assertEquals(matches.get(1).getSurname(), "Something");
+
+    }
+
+    @Test
+    public void goodCourseSearchTest(){
+        Listable<Student> list = makeSinglyList();
+        Student student = new Student();
+        student.setPrename("Huseyin");
+        Listable<Student> matches = searchObject.search(list, new PrenameComparator(), student);
+
+        Assert.assertEquals(matches.get(0).getPrename(), "Huseyin");
+        Assert.assertEquals(matches.get(0).getSurname(), "SomethingNew");
+        Assert.assertEquals(matches.get(1).getPrename(), "Huseyin");
+        Assert.assertEquals(matches.get(1).getSurname(), "E");
+
+    }
+
+    @Test
+    public void goodStudentIDSearchTest(){
+        Listable<Student> list = makeSinglyList();
+        Student student = new Student();
+        student.setPrename("Huseyin");
+        Listable<Student> matches = searchObject.search(list, new PrenameComparator(), student);
+
+        Assert.assertEquals(matches.get(0).getPrename(), "Huseyin");
+        Assert.assertEquals(matches.get(0).getSurname(), "SomethingNew");
+        Assert.assertEquals(matches.get(1).getPrename(), "Huseyin");
+        Assert.assertEquals(matches.get(1).getSurname(), "E");
+
+    }
 }

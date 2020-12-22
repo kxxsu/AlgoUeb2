@@ -1,14 +1,13 @@
 package AlgoUeb2.commands;
 
+import AlgoUeb2.algorithms.InsertionSort;
+import AlgoUeb2.algorithms.MergeSort;
 import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.lists.SinglyLinkedList;
 import AlgoUeb2.search.Search;
 import AlgoUeb2.search.Searchable;
-import AlgoUeb2.sort.CourseComparator;
-import AlgoUeb2.sort.LastnameComparator;
-import AlgoUeb2.sort.PrenameComparator;
-import AlgoUeb2.sort.StudentIDComparator;
+import AlgoUeb2.sort.*;
 import AlgoUeb2.util.Console;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
@@ -60,6 +59,7 @@ public class CommandFactory extends Menu {
         list.add(removeSpecified());
         list.add(clearList());
         list.add(search());
+        list.add(sortList());
 
         return list;
     }
@@ -290,7 +290,7 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() throws Exception {
-                if(list.isEmpty()) {
+                if (list.isEmpty()) {
                     return "This list is empty.";
                 } else {
                     DoublyLinkedList<ICommand> searchableList = new DoublyLinkedList<>();
@@ -321,13 +321,14 @@ public class CommandFactory extends Menu {
             public String execute() {
                 Listable<Student> foundStudents;
                 Searchable<Student> object = new Search<>();
+
                 Student student = new Student();
                 String name = Console.readStringFromStdin("Please enter first name for the search: ");
                 student.setPrename(name);
 
                 foundStudents = object.search(list, new PrenameComparator(), student);
 
-                if(foundStudents.isEmpty()) {
+                if (foundStudents.isEmpty()) {
                     return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
                 } else {
                     System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
@@ -349,13 +350,14 @@ public class CommandFactory extends Menu {
             public String execute() {
                 Listable<Student> foundStudents;
                 Searchable<Student> object = new Search<>();
+
                 Student student = new Student();
                 String name = Console.readStringFromStdin("Please enter last name for the search: ");
                 student.setSurname(name);
 
                 foundStudents = object.search(list, new LastnameComparator(), student);
 
-                if(foundStudents.isEmpty()) {
+                if (foundStudents.isEmpty()) {
                     return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
                 } else {
                     System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
@@ -377,12 +379,13 @@ public class CommandFactory extends Menu {
             public String execute() {
                 Listable<Student> foundStudents;
                 Searchable<Student> object = new Search<>();
+
                 Student student = new Student();
                 student.setCourse(askCourse());
 
                 foundStudents = object.search(list, new CourseComparator(), student);
 
-                if(foundStudents.isEmpty()) {
+                if (foundStudents.isEmpty()) {
                     return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
                 } else {
                     System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
@@ -404,13 +407,14 @@ public class CommandFactory extends Menu {
             public String execute() {
                 Listable<Student> foundStudents;
                 Searchable<Student> object = new Search<>();
+
                 Student student = new Student();
                 int studentID = Console.readIntegerFromStdin("Please enter last name for the search: ", true);
                 student.setStudentID(studentID);
 
                 foundStudents = object.search(list, new StudentIDComparator(), student);
 
-                if(foundStudents.isEmpty()) {
+                if (foundStudents.isEmpty()) {
                     return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
                 } else {
                     System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
@@ -422,6 +426,220 @@ public class CommandFactory extends Menu {
             @Override
             public String description() {
                 return "Search by matriculation number?";
+            }
+        };
+    }
+
+    //////////////////////////////////////////// Sorting /////////////////////////////////////////////////////////
+
+    private static ICommand sortList() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                if (list.isEmpty()) {
+                    return "List is empty.";
+                } else {
+                    DoublyLinkedList<ICommand> sortingList = new DoublyLinkedList<>();
+                    sortingList.add(exit());
+                    sortingList.add(insertionSort());
+                    sortingList.add(mergeSort());
+
+                    System.out.println(buildMenu(sortingList, "Select a sorting method for sorting:"));
+                    ICommand selectedCmd = selectCommand(sortingList);
+                    System.out.println(selectedCmd.execute());
+
+                    return "";
+                }
+            }
+
+            @Override
+            public String description() {
+                return SORT;
+            }
+        };
+    }
+
+    private static ICommand insertionSort() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                DoublyLinkedList<ICommand> sortingList = new DoublyLinkedList<>();
+                sortingList.add(exit());
+                sortingList.add(insertionSortByFirstName());
+                sortingList.add(insertionSortByLastName());
+                sortingList.add(insertionSortByCourse());
+                sortingList.add(insertionSortByStudentID());
+
+                System.out.println(buildMenu(sortingList, "Select a property for sorting with the 'Insertion Sort' algorithm:"));
+                ICommand selectedCmd = selectCommand(sortingList);
+                System.out.println(selectedCmd.execute());
+                return "";
+            }
+
+            @Override
+            public String description() {
+                return "Insertion Sort?";
+            }
+        };
+    }
+
+    private static ICommand insertionSortByFirstName() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> sorting = new InsertionSort<>();
+                sorting.sort(list, new StudentIDComparator());
+                list.printAll();
+
+                return System.lineSeparator() + "List sorted with Insertion Sort.";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by prename?";
+            }
+        };
+    }
+
+    private static ICommand insertionSortByLastName() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> sorting = new InsertionSort<>();
+                sorting.sort(list, new StudentIDComparator());
+                list.printAll();
+
+                return System.lineSeparator() + "List sorted with Insertion Sort.";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by surname?";
+            }
+        };
+    }
+
+    private static ICommand insertionSortByCourse() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> sorting = new InsertionSort<>();
+                sorting.sort(list, new CourseComparator());
+                list.printAll();
+
+                return System.lineSeparator() + "List sorted with Insertion Sort.";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by course?";
+            }
+        };
+    }
+
+    private static ICommand insertionSortByStudentID() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> sorting = new InsertionSort<>();
+                sorting.sort(list, new StudentIDComparator());
+                list.printAll();
+
+                return System.lineSeparator() + "List sorted with Insertion Sort.";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by matriculation number?";
+            }
+        };
+    }
+
+
+    private static ICommand mergeSort() {
+        return new ICommand() {
+            @Override
+            public String execute() throws Exception {
+                DoublyLinkedList<ICommand> sortingList = new DoublyLinkedList<>();
+                sortingList.add(exit());
+                sortingList.add(mergeSortByFirstName());
+                sortingList.add(mergeSortByLastName());
+                sortingList.add(mergeSortByCourse());
+                sortingList.add(mergeSortByStudentID());
+
+                System.out.println(buildMenu(sortingList, "Select a property for sorting with the 'Merge Sort' algorithm:"));
+                ICommand selectedCmd = selectCommand(sortingList);
+                System.out.println(selectedCmd.execute());
+                return "";
+            }
+
+            @Override
+            public String description() {
+                return "Merge Sort?";
+            }
+        };
+    }
+
+    private static ICommand mergeSortByFirstName() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> merge = new MergeSort<>();
+                merge.sort(list, new PrenameComparator());
+                return System.lineSeparator() + "List sorted with Merge Sort by prename";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by prename?";
+            }
+        };
+    }
+
+    private static ICommand mergeSortByLastName() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> merge = new MergeSort<>();
+                merge.sort(list, new LastnameComparator());
+                return System.lineSeparator() + "List sorted with Merge Sort by surname";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by surname?";
+            }
+        };
+    }
+
+    private static ICommand mergeSortByCourse() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> merge = new MergeSort<>();
+                merge.sort(list, new CourseComparator());
+                return System.lineSeparator() + "List sorted with Merge Sort by course";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by course?";
+            }
+        };
+    }
+
+    private static ICommand mergeSortByStudentID() {
+        return new ICommand() {
+            @Override
+            public String execute() {
+                Sortable<Student> merge = new MergeSort<>();
+                merge.sort(list, new StudentIDComparator());
+                return "List sorted with Merge Sort by matriculation number.";
+            }
+
+            @Override
+            public String description() {
+                return "Sort by matriculation number?";
             }
         };
     }
