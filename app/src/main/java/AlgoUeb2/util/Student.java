@@ -14,6 +14,9 @@ public class Student {
         this.course = course;
     }
 
+    public Student() {
+    }
+
     @Override
     public String toString() {
         return "Student [First Name: " + prename + ", Last Name: " + surname + ", Course Number: " + course + ", Matriculation Number: " + studentID + "]";

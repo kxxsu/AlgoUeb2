@@ -3,6 +3,12 @@ package AlgoUeb2.commands;
 import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.lists.Listable;
 import AlgoUeb2.lists.SinglyLinkedList;
+import AlgoUeb2.search.Search;
+import AlgoUeb2.search.Searchable;
+import AlgoUeb2.sort.CourseComparator;
+import AlgoUeb2.sort.LastnameComparator;
+import AlgoUeb2.sort.PrenameComparator;
+import AlgoUeb2.sort.StudentIDComparator;
 import AlgoUeb2.util.Console;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
@@ -31,10 +37,11 @@ public class CommandFactory extends Menu {
     private static final String SORT = "Sort list by different properties.";
     private static final String EXIT_MENU = "Exit";
     private static final String EXIT = "See you another time!";
+    private static final String SEARCH_UNSUCCESSFUL = "There are no students matching this criteria.";
 
     private static final String ASK_FIRST_NAME = "Please enter a first name: ";
     private static final String ASK_Last_NAME = "Please enter a last name: ";
-    private static final String ASK_COURSE = "Please enter a course (0, 1, 2, 3, 4): ";
+    private static final String ASK_COURSE = "Please enter a course number (0, 1, 2, 3, 4): ";
     private static final String ASK_ID = "Please enter a studentID: ";
     private static final String ASK_INDEX = "Please enter a number for the index: ";
     private static final String WARNING_INDEX = "Warning: Invalid index. Try again!";
@@ -283,18 +290,22 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() throws Exception {
-                DoublyLinkedList<ICommand> searchableList = new DoublyLinkedList<>();
-                searchableList.add(exit());
-                searchableList.add(searchFirstName());
-                searchableList.add(searchLastName());
-                searchableList.add(searchCourse());
-                searchableList.add(searchStudentID());
+                if(list.isEmpty()) {
+                    return "This list is empty.";
+                } else {
+                    DoublyLinkedList<ICommand> searchableList = new DoublyLinkedList<>();
+                    searchableList.add(exit());
+                    searchableList.add(searchFirstName());
+                    searchableList.add(searchLastName());
+                    searchableList.add(searchCourse());
+                    searchableList.add(searchStudentID());
 
-                System.out.println(buildMenu(searchableList, false));
-                ICommand selectedCmd = selectCommand(searchableList);
-                System.out.println(selectedCmd.execute());
+                    System.out.println(buildMenu(searchableList, "Select a property to search for the student:"));
+                    ICommand selectedCmd = selectCommand(searchableList);
+                    System.out.println(selectedCmd.execute());
 
-                return null;
+                    return "";
+                }
             }
 
             @Override
@@ -307,8 +318,22 @@ public class CommandFactory extends Menu {
     private static ICommand searchFirstName() {
         return new ICommand() {
             @Override
-            public String execute() throws Exception {
-                return null;
+            public String execute() {
+                Listable<Student> foundStudents;
+                Searchable<Student> object = new Search<>();
+                Student student = new Student();
+                String name = Console.readStringFromStdin("Please enter first name for the search: ");
+                student.setPrename(name);
+
+                foundStudents = object.search(list, new PrenameComparator(), student);
+
+                if(foundStudents.isEmpty()) {
+                    return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
+                } else {
+                    System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
+                    foundStudents.printAll();
+                    return System.lineSeparator() + "Matches printed.";
+                }
             }
 
             @Override
@@ -321,7 +346,7 @@ public class CommandFactory extends Menu {
     private static ICommand searchLastName() {
         return new ICommand() {
             @Override
-            public String execute() throws Exception {
+            public String execute() {
                 return null;
             }
 
@@ -335,7 +360,7 @@ public class CommandFactory extends Menu {
     private static ICommand searchCourse() {
         return new ICommand() {
             @Override
-            public String execute() throws Exception {
+            public String execute() {
                 return null;
             }
 
@@ -349,7 +374,7 @@ public class CommandFactory extends Menu {
     private static ICommand searchStudentID() {
         return new ICommand() {
             @Override
-            public String execute() throws Exception {
+            public String execute() {
                 return null;
             }
 
@@ -359,7 +384,6 @@ public class CommandFactory extends Menu {
             }
         };
     }
-
 
     //////////////////////////////////////////// Private Methods //////////////////////////////////////////////////
 

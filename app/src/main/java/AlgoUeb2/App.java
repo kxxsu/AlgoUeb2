@@ -19,13 +19,13 @@ public class App extends Menu {
 
     public static void main(String[] args) throws Exception {
         DoublyLinkedList<ICommand> listType = CommandFactory.returnsListTypeChoice();
-        System.out.println(buildMenu(listType, true));
+        System.out.println(buildMenu(listType, "Select list type before starting main menu:"));
         ICommand selectedCommand = selectCommand(listType);
         System.out.println(selectedCommand.execute());
 
         DoublyLinkedList<ICommand> commands = CommandFactory.returnsCommandList();
         do {
-            System.out.println(buildMenu(commands, false));
+            System.out.println(buildMenu(commands, "You selected " + commands.getClass().getSimpleName() + ":"));
             ICommand selectedCmd = selectCommand(commands);
             System.out.println(selectedCmd.execute());
         } while (true);

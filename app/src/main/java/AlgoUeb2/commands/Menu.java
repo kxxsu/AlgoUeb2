@@ -4,14 +4,13 @@ import AlgoUeb2.lists.DoublyLinkedList;
 import AlgoUeb2.util.Console;
 
 public class Menu {
-    protected static String buildMenu(DoublyLinkedList<ICommand> cmdList, boolean listTypeMenu) {
+    protected static String buildMenu(DoublyLinkedList<ICommand> cmdList, String headline) {
         StringBuilder builder = new StringBuilder();
         builder.append(System.lineSeparator());
         builder.append("Console-Application: Exercise-2 \t\tMelisa Fidan 576604" + System.lineSeparator());
 
-        if(listTypeMenu) {
-            builder.append(System.lineSeparator() + "Select list type before starting main menu:" + System.lineSeparator());
-        }
+        builder.append(System.lineSeparator() + headline + System.lineSeparator());
+
         builder.append(System.lineSeparator());
 
         for (int i = 1; i < cmdList.size(); i++) {
