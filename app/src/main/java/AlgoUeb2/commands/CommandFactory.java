@@ -48,8 +48,9 @@ public class CommandFactory {
         list.add(addStudentFirst());
         list.add(addStudentLast());
         list.add(returnSpecifiedPosition());
-        list.add(removeSpecified());
         list.add(printAllStudents());
+        list.add(printListSize());
+        list.add(removeSpecified());
         list.add(clearList());
 
         return list;
@@ -318,4 +319,8 @@ public class CommandFactory {
             }
         }
     }
+
+    ////////////////////////////////////////////// Search ////////////////////////////////////////////////////////
+
+    
 }
