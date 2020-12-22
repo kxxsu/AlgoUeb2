@@ -7,11 +7,11 @@ public class Student {
     private Course course;
 
 
-    public Student(String prename, String surname, Course courseno, int studentID) {
+    public Student(String prename, String surname, Course course, int studentID) {
         this.prename = prename;
         this.surname = surname;
         this.studentID = studentID;
-        this.course = courseno;
+        this.course = course;
     }
 
     @Override
