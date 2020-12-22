@@ -347,7 +347,21 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                return null;
+                Listable<Student> foundStudents;
+                Searchable<Student> object = new Search<>();
+                Student student = new Student();
+                String name = Console.readStringFromStdin("Please enter last name for the search: ");
+                student.setSurname(name);
+
+                foundStudents = object.search(list, new LastnameComparator(), student);
+
+                if(foundStudents.isEmpty()) {
+                    return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
+                } else {
+                    System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
+                    foundStudents.printAll();
+                    return System.lineSeparator() + "Matches printed.";
+                }
             }
 
             @Override
@@ -361,7 +375,20 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                return null;
+                Listable<Student> foundStudents;
+                Searchable<Student> object = new Search<>();
+                Student student = new Student();
+                student.setCourse(askCourse());
+
+                foundStudents = object.search(list, new CourseComparator(), student);
+
+                if(foundStudents.isEmpty()) {
+                    return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
+                } else {
+                    System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
+                    foundStudents.printAll();
+                    return System.lineSeparator() + "Matches printed.";
+                }
             }
 
             @Override
@@ -375,7 +402,21 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                return null;
+                Listable<Student> foundStudents;
+                Searchable<Student> object = new Search<>();
+                Student student = new Student();
+                int studentID = Console.readIntegerFromStdin("Please enter last name for the search: ", true);
+                student.setStudentID(studentID);
+
+                foundStudents = object.search(list, new StudentIDComparator(), student);
+
+                if(foundStudents.isEmpty()) {
+                    return System.lineSeparator() + SEARCH_UNSUCCESSFUL;
+                } else {
+                    System.out.println(System.lineSeparator() + "Students found: " + System.lineSeparator());
+                    foundStudents.printAll();
+                    return System.lineSeparator() + "Matches printed.";
+                }
             }
 
             @Override

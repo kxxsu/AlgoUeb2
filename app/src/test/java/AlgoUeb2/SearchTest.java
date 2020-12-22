@@ -21,7 +21,7 @@ public class SearchTest {
     private static final Student student2 = new Student("Carl", "Something", Course.B2, 3737);
     private static final Student student3 = new Student("Huseyin", "SomethingNew", Course.B3, 2937);
     private static final Student student4 = new Student("Melisa", "Urgh", Course.B2, 2873);
-    private static final Student student5 = new Student("Huseyin", "E", Course.B5, 4434);
+    private static final Student student5 = new Student("Huseyin", "E", Course.B5, 7373);
 
 
     private Listable<Student> makeSinglyList() {
