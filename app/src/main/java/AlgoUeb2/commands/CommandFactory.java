@@ -196,7 +196,7 @@ public class CommandFactory extends Menu {
             public String execute() {
                 int index = Console.readIntegerFromStdin(ASK_INDEX, true);
                 if (list.isEmpty()) {
-                    return "This list is empty.";
+                    return System.lineSeparator() + "This list is empty.";
                 } else if (indexOutOfBounds(index)) {
                     return WARNING_INDEX;
                 }
@@ -259,7 +259,7 @@ public class CommandFactory extends Menu {
                     return System.lineSeparator() + "There is no such index. Try again!";
                 }
                 list.remove(i);
-                return null;
+                return "Student has been removed.";
             }
 
             @Override
@@ -291,7 +291,7 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() throws Exception {
                 if (list.isEmpty()) {
-                    return "This list is empty.";
+                    return System.lineSeparator() + "This list is empty.";
                 } else {
                     DoublyLinkedList<ICommand> searchableList = new DoublyLinkedList<>();
                     searchableList.add(exit());

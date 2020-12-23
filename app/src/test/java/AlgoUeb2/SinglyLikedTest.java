@@ -3,6 +3,8 @@
  */
 package AlgoUeb2;
 
+import AlgoUeb2.lists.DoublyLinkedList;
+import AlgoUeb2.lists.Listable;
 import AlgoUeb2.lists.SinglyLinkedList;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
@@ -11,8 +13,6 @@ import org.junit.Test;
 
 public class SinglyLikedTest {
 
-    SinglyLinkedList<Student> test = new SinglyLinkedList<>();
-
     private static final Student student1 = new Student("Mark", "Something", Course.B1, 7373);
     private static final Student student2 = new Student("Carl", "SomethingElse", Course.B2, 3737);
     private static final Student student3 = new Student("Huseyin", "SomethingNew", Course.B3, 2937);
@@ -20,6 +20,8 @@ public class SinglyLikedTest {
 
     @Test
     public void goodAddFirstAndGetTest() {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         Assert.assertNull(test.get(0));
         test.addFirst(student1);
         Assert.assertEquals(student1, test.get(0));
@@ -33,6 +35,8 @@ public class SinglyLikedTest {
 
     @Test
     public void badAddFirstAndGetTest() {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.addFirst(student1);
         Assert.assertNotNull(test.get(0));
         test.addFirst(student2);
@@ -44,6 +48,8 @@ public class SinglyLikedTest {
 
     @Test
     public void goodAddLastTest() {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.addLast(student1);
         Assert.assertEquals(student1, test.get(0));
         test.addLast(student2);
@@ -53,6 +59,8 @@ public class SinglyLikedTest {
 
     @Test
     public void badAddLastTest() {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.addLast(student1);
         Assert.assertNotNull(test.get(0));
         test.addLast(student2);
@@ -64,6 +72,8 @@ public class SinglyLikedTest {
 
     @Test
     public void goodRemoveTest() throws Exception {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.add(student1);
         test.add(student2);
         test.add(student3);
@@ -73,6 +83,8 @@ public class SinglyLikedTest {
 
     @Test
     public void goodRemoveTest2() throws Exception {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.addLast(student1);
         test.remove(0);
         Assert.assertNull(test.get(0));
@@ -80,17 +92,23 @@ public class SinglyLikedTest {
 
     @Test(expected = Exception.class)
     public void badRemoveTest() throws Exception {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.remove(1);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void badRemoveTest2() throws Exception {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.addLast(student3);
         test.remove(1);
     }
 
     @Test
     public void goodAddAtIndexTest() {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.add(student1);
         test.add(student3);
         test.add(1, student2);
@@ -112,6 +130,8 @@ public class SinglyLikedTest {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void badAddAtIndexTest() {
+        Listable<Student> test = new SinglyLinkedList<>();
+
         test.add(student1);
         test.add(1, student2);
     }

@@ -1,6 +1,6 @@
 package AlgoUeb2.lists;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class DoublyLinkedList<T> implements Listable<T> {
     private Node head = null;
@@ -34,7 +34,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
             addFirst(data);
         } else {
             indexOutOfBounds(index);
-            for(int i = 0; i < index - 1; i++) {
+            for (int i = 0; i < index - 1; i++) {
                 node = node.next;
             }
             Node added = new Node(node, data, node.next);
@@ -65,6 +65,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
         if (moved == null) {
             head = node;
         } else {
+            tail.prev = moved;
             moved.next = tail;
         }
         size++;
@@ -73,12 +74,12 @@ public class DoublyLinkedList<T> implements Listable<T> {
     @Override
     public T get(int index) {
         indexOutOfBounds(index);
-        Node node = head;
-        int i = 0;
+        Node node = getToIndex(index);
+/*        int i = 0;
         while (i < index) {
             node = node.next;
             i++;
-        }
+        }*/
         if (node == null) {
             return null;
         } else {
@@ -89,10 +90,8 @@ public class DoublyLinkedList<T> implements Listable<T> {
     @Override
     public void set(int index, T data) {
         indexOutOfBounds(index);
-        Node current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
+        Node current = getToIndex(index);
+
         current.data = data;
     }
 
@@ -107,10 +106,10 @@ public class DoublyLinkedList<T> implements Listable<T> {
         } else if (index == 0) {
             head = head.next;
         } else {
-            Node node = head;
-            for (int i = 0; i < index; i++) {
-                node = node.next;
-            }
+            Node node = getToIndex(index);
+//            for (int i = 0; i < index; i++) {
+//                node = node.next;
+//            }
             node.prev.next = node.next;
             node.next.prev = node.prev;
         }
@@ -146,5 +145,20 @@ public class DoublyLinkedList<T> implements Listable<T> {
         if (index >= size() || index < 0) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
+    }
+
+    private Node getToIndex(int index) {
+        Node head2 = head;
+        int size = size();
+        if (index < size - 1 / 2) {
+            for (int i = 0; i < index; i++) {
+                head2 = head2.next;
+            }
+        } else {
+            for (int i = size - 1; i > index; i--) {
+                head2 = tail.prev;
+            }
+        }
+        return head2;
     }
 }
