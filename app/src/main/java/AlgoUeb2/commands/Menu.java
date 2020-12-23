@@ -23,7 +23,7 @@ public class Menu {
 
     protected static ICommand selectCommand(DoublyLinkedList<ICommand> cmdList) {
         do {
-            int select = Console.readIntegerFromStdin("Please enter a number for an option: ", true);
+            int select = Console.readIntegerFromStdin("Please enter a number for an option: ");
             if(select >= 0 && select < cmdList.size()) {
                 return cmdList.get(select);
             }

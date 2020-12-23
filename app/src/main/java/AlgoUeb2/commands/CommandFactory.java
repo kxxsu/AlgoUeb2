@@ -141,7 +141,7 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                int indice = Console.readIntegerFromStdin(ASK_INDEX, true);
+                int indice = Console.readIntegerFromStdin(ASK_INDEX);
                 if (indice >= list.size()) {
                     return System.lineSeparator() + WARNING_INDEX;
                 }
@@ -194,7 +194,7 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                int index = Console.readIntegerFromStdin(ASK_INDEX, true);
+                int index = Console.readIntegerFromStdin(ASK_INDEX);
                 if (list.isEmpty()) {
                     return System.lineSeparator() + "This list is empty.";
                 } else if (indexOutOfBounds(index)) {
@@ -254,7 +254,7 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() throws Exception {
-                int i = Console.readIntegerFromStdin(ASK_INDEX, true);
+                int i = Console.readIntegerFromStdin(ASK_INDEX);
                 if (i > list.size()) {
                     return System.lineSeparator() + "There is no such index. Try again!";
                 }
@@ -409,7 +409,7 @@ public class CommandFactory extends Menu {
                 Searchable<Student> object = new Search<>();
 
                 Student student = new Student();
-                int studentID = Console.readIntegerFromStdin("Please enter last name for the search: ", true);
+                int studentID = Console.readIntegerFromStdin("Please enter last name for the search: ");
                 student.setStudentID(studentID);
 
                 foundStudents = object.search(list, new StudentIDComparator(), student);
@@ -488,7 +488,7 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() {
                 Sortable<Student> sorting = new InsertionSort<>();
-                sorting.sort(list, new StudentIDComparator());
+                sorting.sort(list, new PrenameComparator());
                 list.printAll();
 
                 return System.lineSeparator() + "List sorted with Insertion Sort.";
@@ -506,7 +506,7 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() {
                 Sortable<Student> sorting = new InsertionSort<>();
-                sorting.sort(list, new StudentIDComparator());
+                sorting.sort(list, new LastnameComparator());
                 list.printAll();
 
                 return System.lineSeparator() + "List sorted with Insertion Sort.";
@@ -585,7 +585,9 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() {
                 Sortable<Student> merge = new MergeSort<>();
-                merge.sort(list, new PrenameComparator());
+                merge.sort(list, new PrenameComparator(), 0, list.size() - 1);
+                list.printAll();
+
                 return System.lineSeparator() + "List sorted with Merge Sort by prename";
             }
 
@@ -601,7 +603,9 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() {
                 Sortable<Student> merge = new MergeSort<>();
-                merge.sort(list, new LastnameComparator());
+                merge.sort(list, new LastnameComparator(), 0, list.size() - 1);
+                list.printAll();
+
                 return System.lineSeparator() + "List sorted with Merge Sort by surname";
             }
 
@@ -617,7 +621,9 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() {
                 Sortable<Student> merge = new MergeSort<>();
-                merge.sort(list, new CourseComparator());
+                merge.sort(list, new CourseComparator(), 0, list.size() - 1);
+                list.printAll();
+
                 return System.lineSeparator() + "List sorted with Merge Sort by course";
             }
 
@@ -633,7 +639,9 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() {
                 Sortable<Student> merge = new MergeSort<>();
-                merge.sort(list, new StudentIDComparator());
+                merge.sort(list, new StudentIDComparator(), 0, list.size() - 1);
+                list.printAll();
+
                 return "List sorted with Merge Sort by matriculation number.";
             }
 
@@ -658,14 +666,14 @@ public class CommandFactory extends Menu {
         String name = Console.readStringFromStdin(ASK_FIRST_NAME);
         String lastName = Console.readStringFromStdin(ASK_Last_NAME);
         Course course = askCourse();
-        int studentID = Console.readIntegerFromStdin(ASK_ID, true);
+        int studentID = Console.readIntegerFromStdin(ASK_ID);
 
         return new Student(name, lastName, course, studentID);
     }
 
     private static Course askCourse() {
         Course course;
-        int courseNumber = Console.readIntegerFromStdin(ASK_COURSE, true);
+        int courseNumber = Console.readIntegerFromStdin(ASK_COURSE);
 
         switch (courseNumber) {
             case 0 -> {

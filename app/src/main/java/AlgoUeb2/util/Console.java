@@ -4,34 +4,31 @@ import java.util.Scanner;
 
 public class Console {
 
-    static public int readIntegerFromStdin(String text, boolean loop){
+    static public int readIntegerFromStdin(String text) {
         //boolean loop to provide loop possibility, but avoid it in testing
-        int number = 0;
         Scanner input = new Scanner(System.in);
-        System.out.print(text);
+        int number = 0;
+        boolean intType = false;
 
-        if(loop){
-            try{
+        do {
+            System.out.print(text);
+
+            if(input.hasNextInt()) {
                 number = input.nextInt();
-                System.lineSeparator();
-            } catch (Exception e){
-                Console.readIntegerFromStdin("Wrong type of entry. Please enter a valid number: ", true);
+                intType = true;
+            } else {
+                System.out.println("Wrong type of entry. Please enter a valid number: ");
+                input.next();
             }
-        } else{
-            number = input.nextInt();
-            System.lineSeparator();
-            System.lineSeparator();
-        }
+        } while (!(intType));
 
         return number;
     }
 
-    static public String readStringFromStdin(String text){
+    static public String readStringFromStdin(String text) {
         Scanner input = new Scanner(System.in);
         System.out.print(text);
         String words = input.nextLine();
-        System.lineSeparator();
-        System.lineSeparator();
 
         return words;
     }
