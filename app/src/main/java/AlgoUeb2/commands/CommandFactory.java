@@ -142,12 +142,12 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                int indice = Console.readIntegerFromStdin(ASK_INDEX);
-                if (indice >= list.size()) {
+                int index = Console.readIntegerFromStdin(ASK_INDEX);
+                if (indexOutOfBounds(index)) {
                     return System.lineSeparator() + WARNING_INDEX;
                 }
                 Student student = askStudent();
-                list.add(indice, student);
+                list.add(index, student);
 
                 return System.lineSeparator() + "Student inserted at specified position.";
             }
@@ -254,8 +254,11 @@ public class CommandFactory extends Menu {
             @Override
             public String execute() throws Exception {
                 int i = Console.readIntegerFromStdin(ASK_INDEX);
-                if (i > list.size()) {
-                    return System.lineSeparator() + "There is no such index. Try again!";
+                if(list.isEmpty()) {
+                    return System.lineSeparator() + "List is empty.";
+                }
+                else if (indexOutOfBounds(i)) {
+                    return System.lineSeparator() + WARNING_INDEX;
                 } else {
                     list.remove(i);
                     return System.lineSeparator() + "Student has been removed.";
