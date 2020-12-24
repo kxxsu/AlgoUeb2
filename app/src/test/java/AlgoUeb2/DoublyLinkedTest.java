@@ -92,6 +92,19 @@ public class DoublyLinkedTest {
     }
 
     @Test
+    public void randfallRemoveTest3() throws Exception {
+        Listable<Student> test = new DoublyLinkedList<>();
+
+        test.add(student1);
+        test.add(student2);
+        test.add(student3);
+        test.remove(0);
+
+        Assert.assertEquals(student2, test.get(0));
+        Assert.assertEquals(student3, test.get(1));
+    }
+
+    @Test
     public void goodAddTest(){
         Listable<Student> test = new DoublyLinkedList<>();
 

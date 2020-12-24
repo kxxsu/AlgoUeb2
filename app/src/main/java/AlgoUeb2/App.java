@@ -18,7 +18,7 @@ public class App extends Menu {
 
         DoublyLinkedList<ICommand> commands = CommandFactory.returnsCommandList();
         do {
-            System.out.println(buildMenu(commands, "You selected " + commands.getClass().getSimpleName() + ":"));
+            System.out.println(buildMenu(commands, "You selected " + CommandFactory.getList().getClass().getSimpleName() + ":"));
             ICommand selectedCmd = selectCommand(commands);
             System.out.println(selectedCmd.execute());
         } while (true);

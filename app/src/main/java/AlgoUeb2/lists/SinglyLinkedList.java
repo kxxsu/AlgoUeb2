@@ -22,8 +22,10 @@ public class SinglyLinkedList<T> implements Listable<T> {
 
         if (index == 0) {
             addFirst(data);
+            return;
         } else if (index - 1 == size) {
             addLast(data);
+            return;
         } else {
             indexOutOfBounds(index);
             for (int i = 0; i < index - 1; i++) {
@@ -37,7 +39,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
 
     @Override
     public void addFirst(T data) {
-        if (head == null) { // TODO benchmark if if statement is redundant
+        if (head == null) {
             addLast(data);
             return;
         } else {
@@ -105,16 +107,15 @@ public class SinglyLinkedList<T> implements Listable<T> {
         if (index >= 0 && index <= (size() - 1)) {
             if (index == 0) {
                 head = head.next;
-                size--;
             } else {
                 while (i < index - 1) {
                     node = node.next;
                     i++;
                 }
                 node.next = node.next.next;
-                size--;
             }
         }
+        size--;
     }
 
     @Override

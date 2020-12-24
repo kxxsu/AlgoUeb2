@@ -1,5 +1,6 @@
 package AlgoUeb2.lists;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class DoublyLinkedList<T> implements Listable<T> {
@@ -17,6 +18,8 @@ public class DoublyLinkedList<T> implements Listable<T> {
             this.next = next;
             this.prev = prev;
         }
+        Node() {
+        }
     }
 
     @Override
@@ -30,8 +33,10 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
         if (index == 0 && isEmpty()) {
             addLast(data);
+            return;
         } else if (index == 0) {
             addFirst(data);
+            return;
         } else {
             indexOutOfBounds(index);
             for (int i = 0; i < index - 1; i++) {
@@ -98,14 +103,25 @@ public class DoublyLinkedList<T> implements Listable<T> {
     @Override
     public void remove(int index) throws Exception {
         indexOutOfBounds(index);
-
         if (isEmpty()) {
             throw new Exception("List is empty");
         } else if (size == 1) {
             clear();
+        } else if(index == 0 && size == 2) {
+            Node node = new Node(null, head.next.data, null);
+            head = node;
         } else if (index == 0) {
-            head = head.next;
-        } else {
+            Node node = new Node(null, head.next.data, head.next.next);
+            head.next.next.prev = node;
+            head = node;
+        } else if(index == size - 1 && size == 2) {
+            head.next = null;
+        } else if(index == size -1) {
+            Node node = new Node(tail.prev.prev, tail.prev.data, null);
+            tail.prev.prev.next = node;
+            tail = node;
+        }
+        else {
             Node node = getToIndex(index);
 //            for (int i = 0; i < index; i++) {
 //                node = node.next;
@@ -113,6 +129,7 @@ public class DoublyLinkedList<T> implements Listable<T> {
             node.prev.next = node.next;
             node.next.prev = node.prev;
         }
+        size--;
     }
 
     @Override
@@ -147,14 +164,16 @@ public class DoublyLinkedList<T> implements Listable<T> {
         }
     }
 
-    private Node getToIndex(int index) {
-        Node head2 = head;
+    private Node getToIndex(int index) { // TODO: 23.12.2020 Check for iteration errors
+        Node head2 = new Node();
         int size = size();
         if (index < size - 1 / 2) {
+            head2 = head;
             for (int i = 0; i < index; i++) {
                 head2 = head2.next;
             }
         } else {
+            head2 = tail;
             for (int i = size - 1; i > index; i--) {
                 head2 = tail.prev;
             }

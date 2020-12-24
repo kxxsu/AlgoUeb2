@@ -12,11 +12,12 @@ import AlgoUeb2.util.Console;
 import AlgoUeb2.util.Course;
 import AlgoUeb2.util.Student;
 
-import java.security.InvalidParameterException;
-
 public class CommandFactory extends Menu {
 
     private static Listable<Student> list;
+    public static Listable<Student> getList() {
+        return list;
+    }
 
     private static final String SINGLE_MENU = "Use a SinglyLinkedList.";
     private static final String DOUBLE_MENU = "Use a DoublyLinkedList.";
@@ -26,12 +27,12 @@ public class CommandFactory extends Menu {
     private static final String ADD = "Student added to the end of this list.";
     private static final String INSERT_SPECIFIED = "Inserts the student at the specified position in this list.";
     private static final String INSERT_BEGINNING = "Inserts the student at the beginning of this list.";
-    private static final String ADD_LAST2 = "Appends the student to the end of this list";
+    private static final String ADD_LAST2 = "Adds the student to the end of this list";
     private static final String RETURN = "Returns the student at the specified position in this list.";
     private static final String PRINT_ALL = "Prints all students to console from this list.";
-    private static final String SIZE = "Returns the number of students in this list.";
+    private static final String SIZE = "Returns the size of this list.";
     private static final String REMOVE_ONE = "Removes the student at the specified position in this list.";
-    private static final String CLEAR = "Removes all of the students from this list.";
+    private static final String CLEAR = "Clears the list.";
     private static final String SEARCH = "Search for student(s) by different characteristics.";
     private static final String SORT = "Sort list by different properties.";
     private static final String EXIT_MENU = "Exit";
@@ -194,16 +195,17 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                int index = Console.readIntegerFromStdin(ASK_INDEX);
                 if (list.isEmpty()) {
                     return System.lineSeparator() + "This list is empty.";
-                } else if (indexOutOfBounds(index)) {
-                    return WARNING_INDEX;
+                } else {
+                    int index = Console.readIntegerFromStdin(ASK_INDEX);
+                    if(indexOutOfBounds(index)) {
+                        return System.lineSeparator() + WARNING_INDEX;
+                    } else {
+                        Student student = list.get(index);
+                        return System.lineSeparator() + "Student at " + index + ": " + student;
+                    }
                 }
-
-                Student student = list.get(index);
-                return System.lineSeparator() + "Student at " + index + ": " + student;
-
             }
 
             @Override
@@ -236,11 +238,8 @@ public class CommandFactory extends Menu {
         return new ICommand() {
             @Override
             public String execute() {
-                if (list.isEmpty()) {
-                    return System.lineSeparator() + "The list is empty.";
-                } else {
-                    return System.lineSeparator() + "There are " + list.size() + " elements in this list.";
-                }
+
+                return System.lineSeparator() + "There are " + list.size() + " elements in this list.";
             }
 
             @Override
@@ -257,9 +256,10 @@ public class CommandFactory extends Menu {
                 int i = Console.readIntegerFromStdin(ASK_INDEX);
                 if (i > list.size()) {
                     return System.lineSeparator() + "There is no such index. Try again!";
+                } else {
+                    list.remove(i);
+                    return System.lineSeparator() + "Student has been removed.";
                 }
-                list.remove(i);
-                return "Student has been removed.";
             }
 
             @Override
@@ -409,7 +409,7 @@ public class CommandFactory extends Menu {
                 Searchable<Student> object = new Search<>();
 
                 Student student = new Student();
-                int studentID = Console.readIntegerFromStdin("Please enter last name for the search: ");
+                int studentID = Console.readIntegerFromStdin("Please enter matriculation number for the search: ");
                 student.setStudentID(studentID);
 
                 foundStudents = object.search(list, new StudentIDComparator(), student);
